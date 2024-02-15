@@ -41,6 +41,7 @@ intellij {
     version = properties("platformVersion")
     type = properties("platformType")
 
+    intellij.localPath.set(properties("StudioRunPath")) //localPath 를 추가 해줘야 intellij가 아닌 Android Studio 가 열림
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     plugins = properties("platformPlugins").map { it.split(',').map(String::trim).filter(String::isNotEmpty) }
 }
@@ -71,6 +72,10 @@ koverReport {
 tasks {
     wrapper {
         gradleVersion = properties("gradleVersion").get()
+    }
+
+    instrumentCode {
+        compilerVersion.set("231.9392.1.2311.11330709") //현재 사용중인 Android Studio Version
     }
 
     patchPluginXml {
